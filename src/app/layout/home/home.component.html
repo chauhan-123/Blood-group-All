@@ -1,0 +1,68 @@
+<!-- blood Group -->
+
+<div class="set-layout">
+    <div class="sidebar">
+        <mat-form-field>
+            <mat-label>Blood Name</mat-label>
+            <mat-select (selectionChange)=sendBloodGroup($event)>
+                <mat-option *ngFor="let blood of bloodGroupDetails" [value]="blood.bloodGroupName">
+                    {{blood.bloodGroupName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+
+<!-- country group -->
+<div *ngIf="showCountry">
+    <div class="set-layout">
+        <div class="sidebar">
+            <mat-form-field>
+                <mat-label>Country Name</mat-label>
+                <mat-select (selectionChange)="sendCountryData($event)">
+                    <mat-option *ngFor="let country of countryGroupList" [value]="country.countryName">
+                        {{country.countryName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- state group -->
+<div *ngIf="showState">
+    <div class="set-layout">
+        <div class="sidebar">
+            <mat-form-field>
+                <mat-label>State Name:</mat-label>
+                <mat-select (selectionChange)="sendStateData($event)">
+                    <mat-option *ngFor="let state of stateGroupList" [value]="state.stateName">
+                        {{state.stateName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+
+<!-- district group -->
+<div *ngIf="showDistrict">
+    <div class="set-layout">
+        <div class="sidebar">
+            <mat-form-field>
+                <mat-label>District Name:</mat-label>
+                <mat-select (selectionChange)="sendDistrictData($event)">
+                    <mat-option *ngFor="let district of districtDetails" [value]="district.districtName">
+                        {{district.districtName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="btn">
+                <button mat-raised-button color="accent" (click)="sendFinalData()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
