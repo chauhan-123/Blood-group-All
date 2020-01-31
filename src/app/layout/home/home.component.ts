@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   showDistrict: boolean = false;
   showUserTable:boolean = false;
   showButton:boolean = false;  
+  buttonShow:boolean = false;
   countryGroupList: any;
   stateGroupList: any;
   bloodName = '';
@@ -92,10 +93,13 @@ export class HomeComponent implements OnInit {
     return this.layoutService.getDistrictDetails(data);
   }
 
+// district group send function 
     sendDistrictData(event){
+      this.buttonShow = true;
       this.district = event.value
     }
 
+    // send all data from admin to backend and get all user details
     sendFinalData(){
     let finalResult = {
         bloodGroup: this.bloodName,
@@ -113,12 +117,13 @@ export class HomeComponent implements OnInit {
      })
   }
 
+  // get user details fuction which get the data
   getUserDetails(data){     
     console.log(data);
    return this.layoutService.getUserInformation(data)
   }
 
-
+// send email funtion when user click the button and send the notification registered email id.
   sendEmail(data){
     this.showButton = true;
     this.layoutService.sendEmail(data).subscribe(res=>{  
@@ -128,4 +133,5 @@ export class HomeComponent implements OnInit {
  this.layoutService.openSnackBar('email send to the registered user' , true);
     })
   }
+  
 }

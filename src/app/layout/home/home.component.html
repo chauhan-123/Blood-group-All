@@ -60,7 +60,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <div class="btn">
+            <div class="btn" *ngIf="buttonShow">
                 <button mat-raised-button color="accent" class="left-align3" (click)="sendFinalData()">Send</button>
             </div>
         </div>
