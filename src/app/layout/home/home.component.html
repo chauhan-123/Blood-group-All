@@ -16,7 +16,7 @@
 <!-- country group -->
 <div *ngIf="showCountry">
     <div class="set-layout">
-        <div class="sidebar">
+        <div class="sidebar left-align">
             <mat-form-field>
                 <mat-label>Country Name</mat-label>
                 <mat-select (selectionChange)="sendCountryData($event)">
@@ -34,7 +34,7 @@
 <!-- state group -->
 <div *ngIf="showState">
     <div class="set-layout">
-        <div class="sidebar">
+        <div class="sidebar left-align1">
             <mat-form-field>
                 <mat-label>State Name:</mat-label>
                 <mat-select (selectionChange)="sendStateData($event)">
@@ -51,7 +51,7 @@
 <!-- district group -->
 <div *ngIf="showDistrict">
     <div class="set-layout">
-        <div class="sidebar">
+        <div class="sidebar left-align2">
             <mat-form-field>
                 <mat-label>District Name:</mat-label>
                 <mat-select (selectionChange)="sendDistrictData($event)">
@@ -61,8 +61,48 @@
                 </mat-select>
             </mat-form-field>
             <div class="btn">
-                <button mat-raised-button color="accent" (click)="sendFinalData()">Send</button>
+                <button mat-raised-button color="accent" class="left-align3" (click)="sendFinalData()">Send</button>
             </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- show the user list table -->
+<div *ngIf="showUserTable">
+    <div class="set-layout">
+        <div class="sidebar">
+            <mat-accordion displayMode="flat" multi class="mat-table">
+                <section matSort class="mat-elevation-z2 mat-header-row">
+                    <span class="mat-header-cell" mat-sort-header="userName">Name</span>
+                    <span class="mat-header-cell" mat-sort-header="gender">Gender</span>
+                    <span class="mat-header-cell" mat-sort-header="bloodGroupName">Blood</span>
+                    <span class="mat-header-cell" mat-sort-header="email">Email</span>
+                    <span class="mat-header-cell" mat-sort-header="phoneNumber">phoneNumber</span>
+                </section>
+
+                <mat-expansion-panel *ngFor="let item of userData">
+                    <mat-expansion-panel-header class="mat-row">
+                        <span class="mat-cell">{{item.userName}}</span>
+                        <span class="mat-cell">{{item.gender}}</span>
+                        <span class="mat-cell">{{item.bloodGroupName}}</span>
+                        <span class="mat-cell">{{item.email}}</span>
+                        <span class="mat-cell">{{item.phoneNumber}}</span>
+                    </mat-expansion-panel-header>
+                    <div style="text-align: center; background-color: aqua;">
+                        <h5>User Information:</h5>
+                        <pre>Name:{{item.userName}}</pre>
+                        <pre>Gender:{{item.gender}}</pre>
+                        <pre>Blood Name:{{item.bloodGroupName}}</pre>
+                        <div class="button">
+                            <pre style="margin-right: 10px;">Email:{{item.email}}</pre>
+                            <button mat-raised-button color="accent" (click)="sendEmail(item.email)"
+                                [disabled]="showButton">Send</button>
+                        </div>
+                        <pre>Phone:{{item.phoneNumber}}</pre>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
         </div>
     </div>
 </div>

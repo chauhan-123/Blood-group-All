@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../layout.service';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +8,15 @@ import { LayoutService } from '../layout.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  displayedColumns: string[] = [ 'userName', 'gender', 'email' , 'phoneNumber' , 'bloodGroupName'];
+  getUserData = new MatTableDataSource<any>([]);
+  userData = [];
   bloodGroupDetails: any;
   showCountry: boolean = false;
   showState: boolean = false;
   showDistrict: boolean = false;
+  showUserTable:boolean = false;
+  showButton:boolean = false;  
   countryGroupList: any;
   stateGroupList: any;
   bloodName = '';
@@ -97,6 +103,29 @@ export class HomeComponent implements OnInit {
         stateGroup: this.state,
         districtGroup: this.district
       }
-      console.log(finalResult)
+     this.getUserDetails(finalResult).subscribe(
+      (response: any) => {
+        this.showUserTable = true;
+        if (response) {
+          this.getUserData = new MatTableDataSource(response.data);
+          this.userData = response.data;
+        }
+     })
+  }
+
+  getUserDetails(data){     
+    console.log(data);
+   return this.layoutService.getUserInformation(data)
+  }
+
+
+  sendEmail(data){
+    this.showButton = true;
+    this.layoutService.sendEmail(data).subscribe(res=>{  
+    if(res['statusCode'] == 200){
+      this.showButton = false;
+    }
+ this.layoutService.openSnackBar('email send to the registered user' , true);
+    })
   }
 }
